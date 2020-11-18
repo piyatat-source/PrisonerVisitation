@@ -11,6 +11,7 @@
     <script src="js/datepicker.js"></script>
     <script src="js/formjs.js"></script>
 
+
     <link href="bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" />
     <link href="bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet" />
     <script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
@@ -40,7 +41,7 @@
                   <div class="info-value"><input type="text" name="reqcode" id="reqcode" placeholder="QR12345678" maxlength="10"></div>
                 </div>
 
-                <div class="btn-check-rq"><button type="button" onclick="CheckToJoin()">ตรวจสอบ</button></div>
+                <div class="btn-check-rq"><button id="btn-ch" type="button" onclick="CheckToJoin()">ตรวจสอบ</button></div>
 
               <!-- <div class="title-info">ข้อมูลผู้ส่งคำขอร่วม</div>
                 <div class="info">
@@ -109,10 +110,94 @@
                       "' ";
                   $result = mysqli_query($conn, $sql);
                   $row = mysqli_fetch_assoc($result);
-                  if ($row['req_status'] == 'none') {
+                  if (
+                      isset($row['req_status']) &&
+                      $row['req_status'] == 'accept'
+                  ) {
+                      $AllowToJoin = true;
                   }
+
+                  if ($AllowToJoin == false) { ?>
+                        
+                      <!-- ยังไม่ยันยันข้อมูล (ไม่อนุญาติให้ร่วมเยี่ยม) -->
+                      <div class="respond">
+                      <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
+                      หมายเลข <?php echo $code; ?> <br> ไม่สามารถเข้าร่วมการเยี่ยมได้
+                      </div>
+                      
+                      
+                      <?php } else {
+                      echo '<script language="javascript">';
+                      echo 'document.getElementById("reqcode").value = "' .
+                          $code .
+                          '";';
+                      echo 'document.getElementById("reqcode").disabled = true;';
+                      echo 'document.getElementById("btn-ch").disabled = true;';
+                      echo '</script>';
+                      ?>
+                      <!-- ยืนยันข้อมูลแล้ว (อนุญาติให้ร่วมเยี่ยม) -->
+                      <div class="respond-c">
+                      <div class="icon"><i class="fas fa-check-circle"></i></div>
+                      หมายเลข <?php echo $code; ?> <br> สามารถเข้าร่วมการเยี่ยมได้
+                      </div><br>
+
+                            <div class="title-info">ข้อมูลผู้ส่งคำขอร่วม</div>
+                        <div class="info">
+                        <div class="info-name">คำนำหน้า <div class="redstar">*</div></div>
+                        <div class="info-value">
+                        <select name="pre" id="pre">
+                            <option value="นาย">นาย</option>
+                            <option value="นาง">นาง</option>
+                            <option value="นางสาว">นางสาว</option>
+                        </select>
+                        </div>
+                        </div>
+                        <div class="info">
+                        <div class="info-name">ชื่อจริง <div class="redstar">*</div></div>
+                        <div class="info-value"><input type="text" name="firstname" id="firstname" placeholder="ชื่อจริง"></div>
+                        </div>
+                        <div class="info">
+                        <div class="info-name">นามสกุล <div class="redstar">*</div></div>
+                        <div class="info-value"><input type="text" name="lastname" id="lastname" placeholder="นามสกุล"></div>
+                        </div>
+                        <div class="info">
+                        <div class="info-name">เบอร์มือถือ<div class="redstar">*</div></div>
+                        <div class="info-value"><input type="number" name="telnumber" id="telnumber" placeholder="เบอร์มือถือ" maxlength="10"></div>
+                        </div>
+                        <div class="info">
+                        <div class="info-name">เลขประจำตัวประชาชน<div class="redstar">*</div></div>
+                        <div class="info-value"><input type="number" name="idnumber" id="idnumber" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"maxlength = "13"/></div>
+                        </div>
+                        <div class="info">
+                        <div class="info-name">LINE ID หรือเบอร์ที่ใช้สมัคร LINE<div class="redstar">*</div></div>
+                        <div class="info-value"><input type="text" name="idline" id="idline" placeholder="LINE ID หรือเบอร์"></div>
+                        </div>
+                        
+                        <div class="info">
+                        <div class="info-name">ความสัมพันธ์กับผู้ต้องขัง<div class="redstar">*</div></div>
+                        <div class="info-value">
+                            <select name="relation" id="relation">
+                            <option value="พ่อ">พ่อ</option>
+                            <option value="แม่">แม่</option>
+                            <option value="ลูกสาว/ลูกชาย">ลูกสาว/ลูกชาย</option>
+                            <option value="หลานสาว/หลานชาย">หลานสาว/หลานชาย</option>
+                            <option value="ลุง/ป้า">ลุง/ป้า</option>
+                            <option value="ปู่/ตา">ปู่/ตา</option>
+                            <option value="ย่ายาย">ย่า/ยาย</option>
+                            </select>
+                        </div>
+                        </div>
+                        <div class="info">
+                        <div class="info-name">อัพโหลดภาพบัตรประชาชน<div class="redstar">*</div></div>
+                        <div class="info-value"><input type="file" name="idpic" id="idpic"></div>
+                        </div>
+        
+                    <div style="clear:both;"></div> 
+                    <div class="btn-submit"><button type="button" onclick="CheckRequest()">ยืนยันส่งคำร้อง</button></div>
+                      
+                      
+                      <?php }
               } else {
-                  echo 'NOTGET';
               } ?>
             </div>
               
@@ -122,7 +207,5 @@
 
         <?php include 'footer.php'; ?>
 
-
-        
 </body>
 </html>
