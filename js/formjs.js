@@ -62,6 +62,59 @@ function CheckRequest(){
 }
 
 
+function CheckJoinRequest(){
+   
+  // return SweetAlert("Hello","success");
+
+  var pre = document.getElementById("pre").value;
+  var firstname = document.getElementById("firstname").value;
+  var lastname = document.getElementById("lastname").value;
+  var telnumber = document.getElementById("telnumber").value;
+  var idnumber = document.getElementById("idnumber").value;
+  var idline = document.getElementById("idline").value;
+  var relation = document.getElementById("relation").value
+  var idpic = document.getElementById("idpic").files.length;
+
+
+  // console.log(pre);
+  // console.log(firstname);
+  // console.log(lastname);
+  // console.log(telnumber);
+  // console.log(idnumber);
+  // console.log(idline);
+  // console.log(relation);
+  // console.log(idpic);
+
+
+
+  if(pre==""||firstname==""||lastname==""||telnumber==""||idnumber==""||idline==""||relation==""||idpic==0){
+      SweetAlert("กรุณากรอกข้อมูลให้ครบ","warning");
+
+  }else{
+          
+          Swal.fire({
+            title: 'กรุณารอสักครู่',
+            html: 'กำลังบันทึกข้อมูล',
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+          });
+          setTimeout(function(){
+            swal.close();
+            document.getElementById("addJoinReq").submit();
+          },3000);
+          
+      
+      
+      
+  }
+      
+}
+
+
+
+
 function CheckToJoin(){
   var code = document.getElementById('reqcode').value;
 

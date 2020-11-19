@@ -281,7 +281,7 @@ nav ul ul li a {
   width: 100%;
   text-align: center;
   padding-top: 40px;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
 }
 
 .btn-check-rq button {
@@ -344,6 +344,11 @@ nav ul ul li a {
 .info-box .info .info-value {
   float: left;
   width: 50%;
+}
+
+.info-box .info .info-value input::-webkit-outer-spin-button , .info-box .info .info-value input::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
 }
 .info-box .info .info-value input {
   padding: 5px;
