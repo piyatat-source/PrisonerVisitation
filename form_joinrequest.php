@@ -69,6 +69,7 @@
                       <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
                       หมายเลข <?php echo $code; ?> <br> ไม่สามารถเข้าร่วมการเยี่ยมได้
                       </div>
+                      <br><br>
                       
                       
                       <?php } else {
@@ -139,6 +140,7 @@
                         </div>
         
                     <div style="clear:both;"></div> 
+                    <br>
                     <div class="btn-submit"><button type="button" onclick="CheckJoinRequest()">ยืนยันส่งคำร้อง</button></div>
                       </form>
                       
