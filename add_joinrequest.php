@@ -107,7 +107,9 @@
                 echo '<script type="text/javascript">console.log("' .
                     $error .
                     '");
-                        window.location.href = "form_request.php?typeErr=true";</script>';
+                        window.location.href = "form_joinrequest.php?reqcode=' .
+                    $req_id .
+                    '&typeErr=true";</script>';
             }
             die();
         }
