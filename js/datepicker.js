@@ -8,8 +8,10 @@ $(document).ready(function () {
       thaiyear: true,
       autoclose: true,
       startDate: dateAdd(), //Set เป็นปี พ.ศ.
+      // startDate: "+5d", //Set เป็นปี พ.ศ.
     })
     .datepicker(); //กำหนดเป็นวันปัจุบัน
+    
 });
 
 function LoadTime(date) {
@@ -35,30 +37,43 @@ function LoadTime(date) {
 function dateAdd() {
   var dateObj = new Date();
   var weekdayNumber = dateObj.getDay();
-
   switch (weekdayNumber) {
+    
     case 0:
-      return "+2d";
+      //วันอาทิตย์
+      return "+4d";
       break;
+    
     case 1:
+      //วันจันทร์
       return "+3d";
       break;
+    
     case 2:
+      //วันอังคาร
       return "+3d";
       break;
+    
     case 3:
+      //วันพุธ
       return "+3d";
       break;
+    
     case 4:
-      return "+4d";
+      //วันพฤหัส
+      return "+5d";
       break;
+    
     case 5:
-      return "+4d";
+      //วันศุกร์
+      return "+5d";
       break;
-    case 6:
-      return "+3d";
+     
+    case 6: 
+      //วันเสาร์
+      return "+4d";
       break;
     default:
-      return "0";
+      return "";
   }
 }
