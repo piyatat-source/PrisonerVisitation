@@ -29,6 +29,7 @@
     // Upload
     $fileupload = isset($_POST['idpic']) ? $_POST['idpic'] : '';
     $upload = $_FILES['idpic'];
+    date_default_timezone_set('Asia/Bangkok');
     $date = date('Y-m-d');
     $dateArr = explode('-', $date);
     $dateThai = $dateArr['0'] + 543 . '-' . $dateArr[1] . '-' . $dateArr[2];
