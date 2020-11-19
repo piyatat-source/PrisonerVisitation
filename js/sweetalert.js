@@ -22,7 +22,7 @@ $(document).ready(function() {
         title: "ไฟล์ภาพผิดพลาด",
         text: "ภาพต้องเป็นไฟล์ .jpg .png และขนาดไม่เกิน 2MB",
         showConfirmButton: false,
-        timer: 4000,
+        timer: 5000,
     });
   }else{
 
