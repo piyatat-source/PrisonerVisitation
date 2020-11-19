@@ -50,7 +50,7 @@
                       <div class="menu-name">ส่งคำขอเยี่ยมผู้ต้องขัง</div>
                   </div>
                   </a>
-                  <a href="#Menu2">
+                  <a href="form_joinrequest.php">
                     <div class="menu-list">
                       <div class="menu-pic"><i class="fas fa-users"></i></div>
                       <div class="menu-name">ส่งคำขอร่วมเยี่ยม</div>  

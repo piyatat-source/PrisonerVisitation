@@ -16,7 +16,7 @@
                             <input type="checkbox" id="btn-1">
                             <ul>
                                 <li><a href="form_request.php">ส่งคำขอเยี่ยม</a></li>
-                                <li><a href="#service2">ส่งคำขอร่วมเยี่ยม</a></li>
+                                <li><a href="form_joinrequest.php">ส่งคำขอร่วมเยี่ยม</a></li>
                                 <li><a href="#service3">ตรวจสอบสถานะ</a></li>
                             </ul>
                         </li>
