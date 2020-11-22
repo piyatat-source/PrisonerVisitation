@@ -43,44 +43,50 @@ function LoadTime(date) {
 function dateAdd() {
   var arrayOfWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   var dateObj = new Date()
-  // dateObj.setDate(26)
   var weekdayNumber = dateObj.getDay()
   var weekdayName = arrayOfWeekdays[weekdayNumber]
   switch (weekdayName) {
     
     case "Sunday":
       //วันอาทิตย์
-      return "+2d";
+      dateObj.setDate(dateObj.getDate() + 2); 
+      return dateObj;
       break;
     
     case "Monday":
       //วันจันทร์
-      return "+2d";
+      dateObj.setDate(dateObj.getDate() + 2); 
+      return dateObj;
       break;
     
     case "Tuesday":
       //วันอังคาร
-      return "+2d";
+      dateObj.setDate(dateObj.getDate() + 2); 
+      return dateObj;
       break;
     
     case "Wednesday":
       //วันพุธ
-      return "+2d";
+      dateObj.setDate(dateObj.getDate() + 2); 
+      return dateObj;
       break;
     
     case "Thursday":
       //วันพฤหัส
-      return "+4d";
+      dateObj.setDate(dateObj.getDate() + 4); 
+      return dateObj;
       break;
     
     case "Friday":
       //วันศุกร์
-      return "+4d";
+      dateObj.setDate(dateObj.getDate() + 4); 
+      return dateObj;
       break;
      
     case "Saturday": 
       //วันเสาร์
-      return "+3d";
+      dateObj.setDate(dateObj.getDate() + 3); 
+      return dateObj;
       break;
     default:
       return "";
