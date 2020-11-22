@@ -5,9 +5,9 @@
                         <div class="bottom-menu-submenu-title">เมนูระบบ<span class="fas fa-chevron-down"></span></div>
 
                         <ul>
-                            <li><a href="#1">ส่งคำร้องขอเยี่ยมผู้ต้องขัง</a></li>
-                            <li><a href="#2">ส่งคำร้องขอร่วมเยี่ยม</a></li>
-                            <li><a href="#3">ติดตามสถานะคำขอ</a></li>
+                            <li><a href="form_request.php">ส่งคำร้องขอเยี่ยมผู้ต้องขัง</a></li>
+                            <li><a href="form_joinrequest.php">ส่งคำร้องขอร่วมเยี่ยม</a></li>
+                            <li><a href="tracking_request.php">ติดตามสถานะคำขอ</a></li>
                             <li><a href="#4">วิธีการใช้งาน</a></li>
                         </ul>
                     </div>
