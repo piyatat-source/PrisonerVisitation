@@ -56,7 +56,7 @@
                       <div class="menu-name">ส่งคำขอร่วมเยี่ยม</div>  
                     </div>
                   </a>
-                  <a href="#Menu3">
+                  <a href="tracking_request.php">
                     <div class="menu-list">
                       <div class="menu-pic"><i class="fas fa-user-check"></i></div>
                       <div class="menu-name">ตรวจสอบสถานะ</div>
