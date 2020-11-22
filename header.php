@@ -17,7 +17,7 @@
                             <ul>
                                 <li><a href="form_request.php">ส่งคำขอเยี่ยม</a></li>
                                 <li><a href="form_joinrequest.php">ส่งคำขอร่วมเยี่ยม</a></li>
-                                <li><a href="#service3">ตรวจสอบสถานะ</a></li>
+                                <li><a href="tracking_request.php">ตรวจสอบสถานะ</a></li>
                             </ul>
                         </li>
                         <li><a href="#question">วิธีการใช้งาน</a></li>
