@@ -1,7 +1,7 @@
 $(document).ready(function () {
   $(".datepicker")
     .datepicker({
-      daysOfWeekDisabled: [0, 6],
+      // daysOfWeekDisabled: [0, 6],
       format: "dd/mm/yyyy",
       todayBtn: false,
       language: "th", //เปลี่ยน label ต่างของ ปฏิทิน ให้เป็น ภาษาไทย   (ต้องใช้ไฟล์ bootstrap-datepicker.th.min.js นี้ด้วย)
@@ -31,47 +31,56 @@ function LoadTime(date) {
   xmlhttp.send();
 }
 
+
+
+
+
+    
+
 // CheckDate
 // console.log(dateAdd())
 
 function dateAdd() {
-  var dateObj = new Date();
-  var weekdayNumber = dateObj.getDay();
-  switch (weekdayNumber) {
+  var arrayOfWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  var dateObj = new Date()
+  // dateObj.setDate(26)
+  var weekdayNumber = dateObj.getDay()
+  var weekdayName = arrayOfWeekdays[weekdayNumber]
+  switch (weekdayName) {
     
-    case 0:
+    case "Sunday":
       //วันอาทิตย์
+      return "+2d";
+      break;
+    
+    case "Monday":
+      //วันจันทร์
+      return "+2d";
+      break;
+    
+    case "Tuesday":
+      //วันอังคาร
+      return "+2d";
+      break;
+    
+    case "Wednesday":
+      //วันพุธ
+      return "+2d";
+      break;
+    
+    case "Thursday":
+      //วันพฤหัส
       return "+4d";
       break;
     
-    case 1:
-      //วันจันทร์
-      return "+3d";
-      break;
-    
-    case 2:
-      //วันอังคาร
-      return "+3d";
-      break;
-    
-    case 3:
-      //วันพุธ
-      return "+3d";
-      break;
-    
-    case 4:
-      //วันพฤหัส
-      return "+5d";
-      break;
-    
-    case 5:
+    case "Friday":
       //วันศุกร์
-      return "+5d";
+      return "+4d";
       break;
      
-    case 6: 
+    case "Saturday": 
       //วันเสาร์
-      return "+4d";
+      return "+3d";
       break;
     default:
       return "";
