@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2020 at 03:29 AM
+-- Generation Time: Nov 22, 2020 at 12:44 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.4
+-- PHP Version: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,10 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tb_datecloses` (
   `dc_id` int(11) NOT NULL,
-  `staff_id` int(11) NOT NULL,
+  `staff_id` int(11) DEFAULT NULL,
   `dateClose` varchar(30) NOT NULL,
-  `type` set('closeByStaff','notEmpty') NOT NULL,
-  `date_create` date NOT NULL
+  `timeClose` varchar(2) NOT NULL,
+  `closeType` set('byrequest','bystaff') NOT NULL,
+  `date_create` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -43,8 +44,9 @@ CREATE TABLE `tb_datecloses` (
 
 CREATE TABLE `tb_joinrequests` (
   `jreq_id` int(11) NOT NULL,
-  `req_id` int(11) NOT NULL,
-  `jreq_code` varchar(6) NOT NULL,
+  `req_code` varchar(10) NOT NULL,
+  `jreq_code` varchar(10) NOT NULL,
+  `jreq_pre` varchar(10) NOT NULL,
   `jreq_firstname` varchar(30) NOT NULL,
   `jreq_lastname` varchar(30) NOT NULL,
   `jreq_id_num` varchar(13) NOT NULL,
@@ -52,9 +54,9 @@ CREATE TABLE `tb_joinrequests` (
   `jreq_line_id` varchar(30) NOT NULL,
   `jreq_relation` varchar(20) NOT NULL,
   `jreq_id_img` varchar(255) NOT NULL,
-  `doc_relat_status` set('accept','deny') NOT NULL,
-  `jreq_status` set('accept','deny') NOT NULL,
-  `date_create` date NOT NULL
+  `doc_relat_status` set('none','accept','deny') NOT NULL DEFAULT 'none',
+  `jreq_status` set('none','accept','deny') NOT NULL DEFAULT 'none',
+  `date_create` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -65,7 +67,8 @@ CREATE TABLE `tb_joinrequests` (
 
 CREATE TABLE `tb_requests` (
   `req_id` int(11) NOT NULL,
-  `req_code` varchar(6) NOT NULL,
+  `req_code` varchar(10) NOT NULL,
+  `req_pre` varchar(10) NOT NULL,
   `req_firstname` varchar(30) NOT NULL,
   `req_lastname` varchar(30) NOT NULL,
   `req_id_num` varchar(13) NOT NULL,
@@ -74,13 +77,14 @@ CREATE TABLE `tb_requests` (
   `req_relation` varchar(20) NOT NULL,
   `req_id_img` varchar(255) NOT NULL,
   `pri_firstname` varchar(30) NOT NULL,
-  `pri_id` varchar(13) NOT NULL,
-  `date_booking` date NOT NULL,
-  `time_booking` date NOT NULL,
-  `doc_relat_status` set('accept','deny') NOT NULL,
-  `doc_pri_status` set('accept','deny') NOT NULL,
-  `req_status` set('accept','deny') NOT NULL,
-  `date_create` date NOT NULL
+  `pri_lastname` varchar(30) NOT NULL,
+  `pri_id_num` varchar(13) NOT NULL,
+  `date_booking` varchar(10) NOT NULL,
+  `time_booking` varchar(2) NOT NULL,
+  `doc_relat_status` set('none','accept','deny') NOT NULL DEFAULT 'none',
+  `doc_pri_status` set('none','accept','deny') NOT NULL DEFAULT 'none',
+  `req_status` set('none','accept','deny') NOT NULL DEFAULT 'none',
+  `date_create` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -155,19 +159,19 @@ ALTER TABLE `tb_visits`
 -- AUTO_INCREMENT for table `tb_datecloses`
 --
 ALTER TABLE `tb_datecloses`
-  MODIFY `dc_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `dc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tb_joinrequests`
 --
 ALTER TABLE `tb_joinrequests`
-  MODIFY `jreq_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `jreq_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_requests`
 --
 ALTER TABLE `tb_requests`
-  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tb_staffs`
