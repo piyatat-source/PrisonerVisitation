@@ -78,7 +78,7 @@
 
         <?php include 'footer.php'; ?>
     <script type="text/javascript">
-    
+
     var slideIndex = 0;
       showSlides();
 
