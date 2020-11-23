@@ -141,3 +141,29 @@ function CheckToJoin(){
 
 }
 
+function CheckToTrack(){
+  var code = document.getElementById('reqcode').value;
+
+  if(code!=""&&code.length==10){
+    Swal.fire({
+      title: 'กรุณารอสักครู่',
+      html: 'กำลังตรวจสอบ',
+      allowOutsideClick: false,
+      onBeforeOpen: () => {
+          Swal.showLoading()
+      },
+    });
+    setTimeout(function(){
+      swal.close();
+      document.getElementById("ChecktoTrack").submit();
+    },3000);
+    
+  }
+  else{
+    SweetAlert("กรุณากรอกหมายเลขให้ถูกต้อง","warning")
+  }
+  
+
+
+}
+
