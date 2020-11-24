@@ -1,3 +1,74 @@
 # Folder Upload
 /uploads_JQ
 /uploads_RQ
+
+# System / Log files
+*.DS_Store
+*.log
+
+# Archives
+*.zip
+
+# Sass Cache
+.sass-cache
+
+# Project files
+.idea
+nbproject
+nbproject/private
+.vscode/
+.vs/
+
+# Node / Bower
+/staff/node_modules/
+/staff/bower_components/
+
+# Plugins
+/staff/plugins/**/*.html
+/staff/plugins/**/*.less
+/staff/plugins/**/*.md
+/staff/plugins/**/*.scss
+/staff/plugins/**/*.ts
+/staff/plugins/**/bower.json
+/staff/plugins/**/package.json
+/staff/plugins/**/webpack.config.js
+/staff/plugins/**/demo/
+/staff/plugins/**/demos/
+/staff/plugins/**/dev/
+/staff/plugins/**/example/
+/staff/plugins/**/examples/
+/staff/plugins/**/less/
+/staff/plugins/**/test/
+/staff/plugins/**/tests/
+/staff/plugins/daterangepicker/website/
+/staff/plugins/daterangepicker/drp.png
+/staff/plugins/daterangepicker/moment.min.js
+/staff/plugins/daterangepicker/package.js
+/staff/plugins/daterangepicker/website.css
+/staff/plugins/daterangepicker/website.js
+/staff/plugins/jquery-ui/AUTHORS.txt
+/staff/plugins/jquery-ui/external/jquery/jquery.js
+/staff/plugins/inputmask/bindings/
+/staff/plugins/flot/plugins/jquery*.js
+!/plugins/flot/plugins/jquery.flot.*.js
+!/plugins/**/LICENSE.md
+!/plugins/**/LICENSE.txt
+!/plugins/**/license.md
+!/plugins/**/license.txt
+!/plugins/**/LICENSE
+!/plugins/**/license
+!/plugins/**/COPYING
+
+
+# Docs
+/staff/docs/_site/
+/staff/docs/vendor/
+/staff/docs/.bundle/
+/staff/docs_html/
+.jekyll-cache/
+.jekyll-metadata
+
+# ETC
+TODO
+ad.js
+/.cache/
