@@ -94,7 +94,7 @@
                 </div>
                 <div class="info">
                   <div class="info-name">เลขประจำตัวประชาชน(ผู้ต้องขัง)<div class="redstar">*</div></div>
-                  <div class="info-value"><input type="number" name="priidnum" id="priidnum" placeholder="เลขประจำตัวประชาชน" maxlength="13"></div>
+                  <div class="info-value"><input type="number" name="priidnum" id="priidnum" placeholder="เลขประจำตัวประชาชน" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13"/></div>
                 </div>
                 <div class="info">
                   <div class="info-name">วันที่ต้องการจองเยี่ยม<div class="redstar">*</div></div>
