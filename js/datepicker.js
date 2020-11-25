@@ -1,7 +1,7 @@
 $(document).ready(function () {
   $(".datepicker")
     .datepicker({
-      // daysOfWeekDisabled: [0, 6],
+      daysOfWeekDisabled: [0, 6],
       format: "dd/mm/yyyy",
       todayBtn: false,
       language: "th", //เปลี่ยน label ต่างของ ปฏิทิน ให้เป็น ภาษาไทย   (ต้องใช้ไฟล์ bootstrap-datepicker.th.min.js นี้ด้วย)

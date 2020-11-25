@@ -54,7 +54,7 @@
                 </div>
                 <div class="info">
                   <div class="info-name">เบอร์มือถือ<div class="redstar">*</div></div>
-                  <div class="info-value"><input type="number" name="telnumber" id="telnumber" placeholder="เบอร์มือถือ" maxlength="10"></div>
+                  <div class="info-value"><input type="number" name="telnumber" id="telnumber" placeholder="เบอร์มือถือ" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"></div>
                 </div>
                 <div class="info">
                   <div class="info-name">เลขประจำตัวประชาชน<div class="redstar">*</div></div>
@@ -85,15 +85,15 @@
                 </div>
                 <div class="title-info pdt50">ข้อมูลการขอเข้าเยี่ยม</div>
                 <div class="info">
-                  <div class="info-name">ชื่อผู้ต้องขัง<div class="redstar">*</div></div>
+                  <div class="info-name">ชื่อ (ผู้ต้องขัง)<div class="redstar">*</div></div>
                   <div class="info-value"><input type="text" name="prifirstname" id="prifirstname" placeholder="ชื่อจริง"></div>
                 </div>
                 <div class="info">
-                  <div class="info-name">นามสกุลผู้ต้องขัง<div class="redstar">*</div></div>
+                  <div class="info-name">นามสกุล (ผู้ต้องขัง)<div class="redstar">*</div></div>
                   <div class="info-value"><input type="text" name="prilastname" id="prilastname" placeholder="นามสกุล"></div>
                 </div>
                 <div class="info">
-                  <div class="info-name">เลขประจำตัวประชาชน(ผู้ต้องขัง)<div class="redstar">*</div></div>
+                  <div class="info-name">เลขประจำตัวประชาชน (ผู้ต้องขัง)<div class="redstar">*</div></div>
                   <div class="info-value"><input type="number" name="priidnum" id="priidnum" placeholder="เลขประจำตัวประชาชน" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13"/></div>
                 </div>
                 <div class="info">
