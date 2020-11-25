@@ -37,7 +37,7 @@
 
               <?php if (!$_GET) { ?>
               <div class="title-info">ติดตามคำร้อง</div>
-              <form id="ChecktoTrack" method="get" action="tracking_request2.php">
+              <form id="ChecktoTrack" method="get" action="tracking_request.php">
               <div class="info">
                   <div class="info-name">หมายเลขคำร้อง <div class="redstar">*</div></div>
                   <div class="info-value"><input type="text" name="reqcode" id="reqcode" placeholder="QR12345678" maxlength="10"></div>
@@ -104,7 +104,7 @@
                                 ?>
                                 </b><br><br> กรุณาติดต่อเจ้าหน้าที่ <b>ก่อนเวลาเยี่ยม 10 นาที</b><br> ผ่านช่องทาง <b style="color:#32CD32">LINE ID : kalasin-prison </b>
                                 </div>
-                                <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request2.php'">กลับ</button></div>
+                                <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request.php'">กลับ</button></div>
                             </div>
                       
 
@@ -116,7 +116,7 @@
                             <div class="info-box" style="height:400px !important">
                                 <div class="show-code"><i style="color:#a81a27" class="fas fa-exclamation-circle"></i><br><br>ผลอนุมัติคำขอไม่ผ่าน </div>
                                 <div class="txt">เนื่องจากการตรวจสอบเอกสารไม่ถูกต้อง <br>ข้อมูลเพิ่มเติมติดต่อ 043-840-061</div>
-                                <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request2.php'">กลับ</button></div>
+                                <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request.php'">กลับ</button></div>
                             </div>
                           <?php } elseif (
                           isset($row['req_status']) &&
@@ -126,7 +126,7 @@
                           <div class="info-box" style="height:400px !important">
                               <div class="show-code"><i style="color:#DAA520" class="far fa-clock"></i><br><br>อยู่ระหว่างรอตรวจสอบ </div>
                               <div class="txt">กรุณารอเจ้าหน้าที่ตรวจสอบข้อมูล (อาจใช้เวลา 1-2วันทำการ)
-                              <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request2.php'">กลับ</button></div>
+                              <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request.php'">กลับ</button></div>
                           </div>
                         <?php } else {echo '<b>ไม่พบหมายเลขคำขอนี้</b>';}
                   } elseif ($parts[0] == 'JQ') {
@@ -144,7 +144,7 @@
                             <div class="txt">
                            <br> กรุณาติดต่อเจ้าหน้าที่ <b>ก่อนเวลาเยี่ยม 10 นาที</b><br> ผ่านช่องทาง <b style="color:#32CD32">LINE ID : kalasin-prison </b>
                             </div>
-                            <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request2.php'">กลับ</button></div>
+                            <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request.php'">กลับ</button></div>
                         </div>
                   
 
@@ -156,7 +156,7 @@
                             <div class="info-box" style="height:400px !important">
                                 <div class="show-code"><i style="color:#a81a27" class="fas fa-exclamation-circle"></i><br><br>ผลอนุมัติคำขอไม่ผ่าน </div>
                                 <div class="txt">เนื่องจากการตรวจสอบเอกสารไม่ถูกต้อง <br>ข้อมูลเพิ่มเติมติดต่อ 043-840-061</div>
-                                <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request2.php'">กลับ</button></div>
+                                <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request.php'">กลับ</button></div>
                             </div>
                           <?php } elseif (
                           isset($row['jreq_status']) &&
@@ -166,14 +166,14 @@
                           <div class="info-box" style="height:400px !important">
                               <div class="show-code"><i style="color:#DAA520" class="far fa-clock"></i><br><br>อยู่ระหว่างรอตรวจสอบ </div>
                               <div class="txt">กรุณารอเจ้าหน้าที่ตรวจสอบข้อมูล (อาจใช้เวลา 1-2วันทำการ)
-                              <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request2.php'">กลับ</button></div>
+                              <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request.php'">กลับ</button></div>
                           </div>
                         <?php } else { ?>
                             <div class="title-info"><?php echo $codeReq; ?></div>
                               <div class="info-box" style="height:400px !important">
                                   <div class="show-code"><i style="color:#e5e5e5" class="fas fa-times"></i><br><br>ไม่พบหมายเลขคำขอ </div>
                                   <div class="txt">หากลืมหมายเลขคำขอ หรือมีข้อสงสัยกรุณาติดต่อเจ้าหน้าที่
-                                  <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request2.php'">กลับ</button></div>
+                                  <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request.php'">กลับ</button></div>
                               </div>
                             <?php }
                   } else {
@@ -182,7 +182,7 @@
                       <div class="info-box" style="height:400px !important">
                           <div class="show-code"><i style="color:#e5e5e5" class="fas fa-times"></i><br><br> </div>
                           <div class="txt">รูปแบบของหมายเลขคำขอผิด
-                          <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request2.php'">กลับ</button></div>
+                          <div class="btn-check-rq"><button id="btn-back" type="button" onclick="window.location.href='tracking_request.php'">กลับ</button></div>
                       </div>
                     <?php
                   }
