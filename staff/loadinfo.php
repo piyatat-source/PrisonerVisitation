@@ -79,15 +79,39 @@ while ($row = mysqli_fetch_assoc($result)) {
         $row['doc_pri_status'] == 'deny'
     ) {
         $response .=
-            '<tr><td style="text-align:center" colspan="2">คำขอนี้มีสถานะ <h4 style="color:red;display:inline">ไม่ผ่าน</h4> ยืนยันปฏิเสธคำร้องหรือไม่ ?<br><br><a class="btn btn-danger btn-lg" href="#" role="button">ยืนยันปฏิเสธ</a></td></tr>';
+            '<tr><td style="text-align:center" colspan="2">คำขอนี้มีสถานะ <h4 style="color:red;display:inline">ไม่ผ่าน</h4> ยืนยันปฏิเสธคำร้องหรือไม่ ?<br><br><a class="btn btn-danger btn-lg" href="action/confirm_deny.php?id=' .
+            $row['req_id'] .
+            '&date=' .
+            $row['date_booking'] .
+            '&time=' .
+            $row['time_booking'] .
+            '" role="button">ยืนยันปฏิเสธ</a></td></tr>';
     }
 
     if (
         $row['doc_relat_status'] == 'accept' &&
         $row['doc_pri_status'] == 'accept'
     ) {
-        $response .= '<tr><td style="text-align:center" colspan="2">คำขอนี้มีสถานะ <h4 style="color:green;display:inline">ผ่าน</h4> ยืนยันอนุมัติคำร้องหรือไม่ ?<br><br><a class="btn btn-success btn-" href="#" role="button">ยืนยันอนุมัติ</a> 
-        <a class="btn btn-danger btn-sm" href="#" role="button">ไม่อนุมัติ</a></td></tr>';
+        $response .=
+            '<tr><td style="text-align:center" colspan="2">คำขอนี้มีสถานะ <h4 style="color:green;display:inline">ผ่าน</h4> ยืนยันอนุมัติคำร้องหรือไม่ ?<br><br>
+            <a class="btn btn-success btn-" href="action/confirm_accept.php?id=' .
+            $row['req_id'] .
+            '&date=' .
+            $row['date_booking'] .
+            '&time=' .
+            $row['time_booking'] .
+            '
+            "role="button">ยืนยันอนุมัติ</a> 
+            
+            <a class="btn btn-danger btn-sm" href="action/confirm_deny.php?id=' .
+            $row['req_id'] .
+            '&date=' .
+            $row['date_booking'] .
+            '&time=' .
+            $row['time_booking'] .
+            '
+            
+            " role="button">ไม่อนุมัติ</a></td></tr>';
     }
 
     $response .= '</tbody></table></div>';
