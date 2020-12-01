@@ -444,7 +444,7 @@ while ($row = mysqli_fetch_array($result)) {
     $('.btn').click(function(){
       var reqid =$(this).data('id');
         $.ajax({
-          url:'loadinfo.php',
+          url:'async/loadinfo_request.php',
           type:'post',
           data:{reqid:reqid},
           success: function(response){

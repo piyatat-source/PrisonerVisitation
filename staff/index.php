@@ -45,6 +45,8 @@ $PriName = [];
 $RelName = [];
 $VID = [];
 $StatusVID = [];
+$RQCode = [];
+$RQID = [];
 
 function getTHdate($time)
 {
@@ -65,7 +67,7 @@ function getFullTHdate($time)
     $thai_date_return .= ' ' . (date('Y', $time) + 543);
     return $thai_date_return;
 }
-$currentDate = '01/12/2563'; //จำลองวันที่
+$currentDate = '08/12/2563'; //จำลองวันที่
 // $currentDate = getTHdate(time());
 $currentFullDate = getFullTHdate(time());
 
@@ -85,6 +87,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             $row['req_lastname'];
         $VID[$row['time_booking']] = $row['vid'];
         $StatusVID[$row['time_booking']] = $row['vid_status'];
+        $RQCode[$row['time_booking']] = $row['req_code'];
+        $RQID[$row['time_booking']] = $row['req_id'];
         $numVisitorAll += 1;
     }
     if ($row['date_booking'] == $currentDate && $row['vid_status'] == 'none') {
@@ -404,6 +408,25 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <td ><?php echo $timeSet[$i]; ?></td>
                     <td><?php if (isset($RelName[$i])) {
                         echo $RelName[$i];
+                        if (isset($RQCode[$i])) {
+                            require_once '../database/connect.php';
+                            $sqlgetJoinmember =
+                                'SELECT * FROM tb_joinrequests WHERE req_code = "' .
+                                $RQCode[$i] .
+                                '" AND jreq_status = "accept" ';
+                            $Joinmember = mysqli_query(
+                                $conn,
+                                $sqlgetJoinmember
+                            );
+
+                            while ($each = mysqli_fetch_assoc($Joinmember)) {
+                                echo ',<br>' .
+                                    $each['jreq_pre'] .
+                                    $each['jreq_firstname'] .
+                                    '  ' .
+                                    $each['jreq_lastname'];
+                            }
+                        }
                     } else {
                         echo '-';
                     } ?></td>
@@ -415,9 +438,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 
                     <td style="text-align:center">
                     <?php if (isset($VID[$i]) && $StatusVID[$i] == 'none') { ?> 
-                      <button class="btn btn-primary" href="#<?php echo $VID[
+                      <button data-id="<?php echo $RQID[
                           $i
-                      ]; ?>">ข้อมูลเพิ่มเติม</button> 
+                      ]; ?>" class="btn btn-primary" href="#<?php echo $VID[
+    $i
+]; ?>">ข้อมูลเพิ่มเติม</button> 
                       <button class="btn btn-success" onclick="ConfirmVisited('<?php echo $PriName[
                           $i
                       ]; ?>',<?php echo $VID[$i]; ?>)">สำเร็จ</button> 
@@ -435,6 +460,18 @@ while ($row = mysqli_fetch_assoc($result)) {
                         $StatusVID[$i] == 'failed'
                     ) { ?>
                         <b style="color:#dc3545">การเยี่ยมไม่สำเร็จ</b>
+                        <?php
+                        require_once '../database/connect.php';
+                        $sqlgetnote =
+                            'SELECT vid_note FROM tb_visits WHERE vid = "' .
+                            $VID[$i] .
+                            '" ';
+                        $result = mysqli_query($conn, $sqlgetnote);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $note = $row['vid_note'];
+                        }
+                        ?>
+                        <p>สาเหตุ : <?php echo $note; ?></p>
                       <?php } ?>
                     </td>
                   </tr>
@@ -455,6 +492,24 @@ while ($row = mysqli_fetch_assoc($result)) {
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+  </div>
+
+  <div class="container">
+   <div class="modal fade" id='requestInfo' role='dialog'>
+     <div class="modal-dialog modal-lg">
+
+          <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="col-12 modal-title text-center">ข้อมูลรายละเอียด</h4>
+                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+            </div>
+            <div class="modal-body"></div>
+            <!-- <div class="modal-footer">
+            
+            </div> -->
+       </div>
+       </div>
+   </div>
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -532,7 +587,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   confirmButtonText: 'ยืนยันการเยี่ยมเสร็จสิ้น'
 }).then((result) => {
   if (result.isConfirmed) {
-    window.location.href = 'confirmVisited.php?id='+vid;
+    window.location.href = 'action/confirm_vistited.php?id='+vid;
   }
 })
 }
@@ -550,7 +605,7 @@ ConfirmFailed = (pname,vid) =>{
   showCancelButton: false
 }).then((result) => {
   if (result.value) {
-    window.location.href = 'confirmFailed.php?id='+vid+'&note='+result.value;
+    window.location.href = 'action/confirm_failed.php?id='+vid+'&note='+result.value;
     }
 })
 }
@@ -582,6 +637,22 @@ ConfirmFailed = (pname,vid) =>{
     //   "autoWidth": false,
     //   "responsive": true,
     // });
+  });
+</script>
+<script type="text/javascript">
+  $().ready(function(){
+    $('.btn-primary').click(function(){
+      var reqid =$(this).data('id');
+        $.ajax({
+          url:'async/loadinfo_visit.php',
+          type:'post',
+          data:{reqid:reqid},
+          success: function(response){
+              $('.modal-body').html(response);
+              $('#requestInfo').modal('show');
+          }
+        })
+    })
   });
 </script>
 </body>
