@@ -62,7 +62,7 @@
                       <div class="menu-name">ตรวจสอบสถานะ</div>
                     </div>
                   </a> 
-                  <a href="#Menu4">
+                  <a href="howto_use.php">
                     <div class="menu-list">   
                       <div class="menu-pic"><i class="fas fa-question-circle"></i></div>
                       <div class="menu-name">วิธีการใช้งาน</div>
