@@ -8,14 +8,14 @@
                             <li><a href="form_request.php">ส่งคำร้องขอเยี่ยมผู้ต้องขัง</a></li>
                             <li><a href="form_joinrequest.php">ส่งคำร้องขอร่วมเยี่ยม</a></li>
                             <li><a href="tracking_request.php">ติดตามสถานะคำขอ</a></li>
-                            <li><a href="#4">วิธีการใช้งาน</a></li>
+                            <li><a href="howto_use.php">วิธีการใช้งาน</a></li>
                         </ul>
                     </div>
                     <div class="bottom-menu-submenu">
                         <div class="bottom-menu-submenu-title">เงื่อนไขการใช้งาน<span class="fas fa-chevron-down"></span></div>
                         <ul>
-                            <li><a href="#5">ข้อตกลงการใช้งาน</a></li>
-                            <li><a href="#6">เกี่ยวกับระบบ</a></li>
+                            <li><a href="form_agreement.php">ข้อตกลงการใช้งาน</a></li>
+                            <li><a href="form_about.php">เกี่ยวกับระบบ</a></li>
 
                         </ul>
                     </div>

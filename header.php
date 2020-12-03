@@ -20,14 +20,14 @@
                                 <li><a href="tracking_request.php">ตรวจสอบสถานะ</a></li>
                             </ul>
                         </li>
-                        <li><a href="#question">วิธีการใช้งาน</a></li>
+                        <li><a href="howto_use.php">วิธีการใช้งาน</a></li>
                         <li>
                             <label for="btn-2" class="showsub">ติดต่อเรา  <i class="fas fa-sort-down"></i></label>
                             <a href="#contact">ติดต่อเรา</a>
                             <input type="checkbox" id="btn-2">
                             <ul>
-                                <li><a href="#contact2">คำถามที่พบบ่อย</a></li>
-                                <li><a href="#contact3">ติดต่อเรา</a></li>
+                                <li><a href="form_question.php">คำถามที่พบบ่อย</a></li>
+                                <li><a href="contact_us.php">ติดต่อเรา</a></li>
                             </ul>
                         </li>
                     </ul>

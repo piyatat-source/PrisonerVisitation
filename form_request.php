@@ -20,7 +20,6 @@
     <script src="dist/locales/bootstrap-datepicker.th.min.js" charset="UTF-8"></script>
    
 
-
     <title>Prisoner Visitor</title>
 </head>
 <body>
