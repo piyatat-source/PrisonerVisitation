@@ -1,0 +1,32 @@
+/* ------ HOW TO USE ------ */
+.info-box .detail-info {
+    padding-left: 35px;
+    padding-bottom: 15px;
+    font-size: 16px;
+  }
+  
+  .info-box .detail-info a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+  }
+  
+  .info-box .detail-info a:hover {
+    /* text-decoration: none; */
+    color: rgb(61, 61, 61);
+  }
+  
+  .info-box .img {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+  
+  .info-box .img img {
+    width: 100%;
+  }
+  
+  .info-box .img video {
+    width: 100%;
+  }
+  
+  /* ------ HOW TO USE ------ */

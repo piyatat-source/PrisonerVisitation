@@ -82,7 +82,7 @@ nav ul li a {
 }
 nav ul ul {
   z-index: 3;
-  border-top: 4px solid #acdf87;
+  border-top: 8px solid #acdf87;
   position: absolute;
   top: 60px;
   opacity: 0;
