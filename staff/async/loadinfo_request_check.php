@@ -61,7 +61,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         '';
 
     $response .=
-        '<hr><p class="lead"><strong>ข้อมูลการจองเยี่ยม</strong></p>
+        '<hr><p class="lead"><strong>ข้อมูลการขอเยี่ยม</strong></p>
         ชื่อผู้ต้องขัง :  ' .
         $row['pri_firstname'] .
         '  ' .
@@ -77,45 +77,18 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     $response .= '</td></tr>';
 
-    if (
-        $row['doc_relat_status'] == 'deny' ||
-        $row['doc_pri_status'] == 'deny'
-    ) {
-        $response .=
-            '<tr><td style="text-align:center" colspan="2">คำขอนี้มีสถานะ <h4 style="color:red;display:inline">ไม่ผ่าน</h4> ยืนยันปฏิเสธคำร้องหรือไม่ ?<br><br><a class="btn btn-danger btn-lg" href="action/confirm_deny.php?id=' .
-            $row['req_id'] .
-            '&date=' .
-            $row['date_booking'] .
-            '&time=' .
-            $row['time_booking'] .
-            '" role="button">ยืนยันปฏิเสธ</a></td></tr>';
-    }
-
-    if (
-        $row['doc_relat_status'] == 'accept' &&
-        $row['doc_pri_status'] == 'accept'
-    ) {
-        $response .=
-            '<tr><td style="text-align:center" colspan="2">คำขอนี้มีสถานะ <h4 style="color:green;display:inline">ผ่าน</h4> ยืนยันอนุมัติคำร้องหรือไม่ ?<br><br>
-            <a class="btn btn-success btn-" href="action/confirm_accept.php?id=' .
-            $row['req_id'] .
-            '&date=' .
-            $row['date_booking'] .
-            '&time=' .
-            $row['time_booking'] .
-            '
-            "role="button">ยืนยันอนุมัติ</a> 
+    $response .=
+        '<tr><td style="text-align:center" colspan="2">ข้อมูลดังกล่าวถูกตรวจสอบ และมีความถูกต้องหรือไม่?<br><br>
+            <a class="btn btn-success" href="action/confirm_accept_req_relation.php?id=' .
+        $row['req_id'] .
+        '
+            "role="button">ยืนยัน! สามารถให้เยี่ยมได้</a> 
             
-            <a class="btn btn-danger btn-sm" href="action/confirm_deny.php?id=' .
-            $row['req_id'] .
-            '&date=' .
-            $row['date_booking'] .
-            '&time=' .
-            $row['time_booking'] .
-            '
+            <a class="btn btn-danger" href="action/confirm_deny_req_relation.php?id=' .
+        $row['req_id'] .
+        '
             
-            " role="button">ไม่อนุมัติ</a></td></tr>';
-    }
+            " role="button">ข้อมูลไม่ถูกต้อง</a></td></tr>';
 
     $response .= '</tbody></table></div>';
 }

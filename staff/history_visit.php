@@ -4,8 +4,15 @@ if (!isset($_SESSION['Department'])) {
     header('Location: sign_in.php');
 }
 date_default_timezone_set('Asia/Bangkok');
+
+if ($_GET) {
+    $currentDate = $_GET['inputdatepicker'];
+} else {
+    $currentDate = '';
+}
+
 $numVisitorAll = 0;
-$numVisitorWait = 0;
+
 $numVisitorFinished = 0;
 $numVisitorFailed = 0;
 $monthTH = [
@@ -71,7 +78,7 @@ function getFullTHdate($time)
     $thai_date_return .= ' ' . (date('Y', $time) + 543);
     return $thai_date_return;
 }
-$currentDate = '08/12/2563'; //จำลองวันที่
+//จำลองวันที่
 // $currentDate = getTHdate(time());
 $currentFullDate = getFullTHdate(time());
 
@@ -96,7 +103,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         $numVisitorAll += 1;
     }
     if ($row['date_booking'] == $currentDate && $row['vid_status'] == 'none') {
-        $numVisitorWait += 1;
     } elseif (
         $row['date_booking'] == $currentDate &&
         $row['vid_status'] == 'finished'
@@ -115,7 +121,13 @@ while ($row = mysqli_fetch_assoc($result)) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>รายการเยี่ยมประจำวันที่ <?php echo $currentDate; ?></title>
+  <title>ประวัติการเยี่ยมวันที่ <?php if ($_GET) {
+      echo $_GET['inputdatepicker'];
+  } ?></title>
+
+  <!-- Calendar -->
+  <link rel="stylesheet" href="src/css/vanilla-calendar.css">
+  <script src="src/js/vanilla-calendar-min.js"></script>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -144,14 +156,20 @@ while ($row = mysqli_fetch_assoc($result)) {
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
   <style>
-
+    .is-blurred {
+      filter: brightness(80%);
+      -webkit-filter: brightness(80%);
+    }
    @media print {
        table td:last-child {display:none}
        table th:last-child {display:none}
    }
    </style>
+
+
 </head>
-<body style="font-family:'Kanit';" class="hold-transition sidebar-mini layout-fixed">
+<body style="font-family:'Kanit';" class="hold-transition sidebar-mini layout-fixed ">
+<div id="myCalendar" class="vanilla-calendar"></div>
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -212,7 +230,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                with font-awesome or any other icon font library -->
             <li class="nav-header">รายการเยี่ยมประจำวัน</li>
             <li class="nav-item">
-              <a href="index.php" class="nav-link  active">
+              <a href="index.php" class="nav-link">
                 <i class="nav-icon far fa-calendar-check"></i>
                 <p>
                   รายการเยี่ยมประจำวัน
@@ -220,10 +238,10 @@ while ($row = mysqli_fetch_assoc($result)) {
               </a>
             </li>
 
-            
             <li class="nav-header">จัดการบริการ</li>
+
             <?php if ($_SESSION['Department'] == 'visitRelative') { ?>
-    
+            
                <li class="nav-item">
                 <a href="approve_rq.php" class="nav-link">
                   <i class="nav-icon fas fa-check"></i>
@@ -297,7 +315,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           <?php } ?>
 
           <li class="nav-item">
-            <a href="history_visit.php" class="nav-link">
+            <a href="history_visit.php" class="nav-link  active">
               <i class="nav-icon fas fa-history"></i>
               <p>
                 ประวัติการเยี่ยม
@@ -331,7 +349,7 @@ while ($row = mysqli_fetch_assoc($result)) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">รายการเยี่ยมประจำวันที่ <?php echo $currentFullDate; ?></h1>
+            <h1 class="m-0">ประวัติการเยี่ยม </h1>
           </div><!-- /.col -->
           <!-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -356,6 +374,41 @@ while ($row = mysqli_fetch_assoc($result)) {
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
+
+      <div class="row">
+    
+            <div class="card-body" style="text-align:left">
+              
+            </div>  
+       
+      </div>
+
+        <div class="row">
+          <div class="col-12">
+          <form>
+                <div class="form-row align-items-center">
+                  
+                  <div class="col-auto">
+                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                      </div>
+                      <input style="cursor:pointer;background:#fff" name="inputdatepicker" id="inputdatepicker"  class="datepicker form-control" data-date-format="mm/dd/yyyy" readonly="readonly" placeholder="" onchange="NO(this.value)">
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                  </div>
+                  <div class="col-auto">
+                    <button type="submit" class="btn btn-success mb-2">ค้นหา</button>
+                  </div>
+                </div>
+             </form>
+          </div>
+        </div>
+
+      <hr>
+  
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -372,21 +425,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             </div>
           </div>
           <!-- ./col -->
-
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3><?php echo $numVisitorWait; ?></h3>
-                <p>รายการ</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-user-clock"></i>
-              </div>
-              <a href="#" class="small-box-footer">รอเยี่ยม</a>
-            </div>
-          </div>
-
 
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -422,15 +460,23 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
         <!-- /.row -->
         <!-- Main row -->
+
+       
+
         <div class="row">
 
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">รายการเยี่ยมญาติทั้งหมดของวันนี้</h3>
+                
+                <h3 class="card-title"><br>รายการเยี่ยมญาติ <?php if ($_GET) {
+                    echo 'ของวันที่ ' . $_GET['inputdatepicker'];
+                } ?><br><br></h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+
+              <?php if ($_GET) { ?>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -438,14 +484,15 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <th width="15%">เวลา</th>
                     <th>ชื่อญาติ</th>
                     <th>ชื่อผู้ต้องขัง</th>
-                    <th  width="30%">การจัดการ</th>
+                    <th>ผลการเยี่ยม</th>
+                    <th width="20%">ดูข้อมูลเพิ่มเติม</th>
                   </tr>
                   </thead>
                   <tbody>
 
                   <?php for ($i = 0; $i < 18; $i++) { ?>
                   
-                  <tr>
+                  <tr style="text-align:center">
                     <td style="text-align:center"><?php echo $i + 1; ?></td>
                     <td ><?php echo $timeSet[$i]; ?></td>
                     <td><?php if (isset($RelName[$i])) {
@@ -478,57 +525,42 @@ while ($row = mysqli_fetch_assoc($result)) {
                         echo '-';
                     } ?></td>
 
-                    <td style="text-align:center">
+
+                    <td>
+
                     <?php if (
-                        isset($VID[$i]) &&
-                        $StatusVID[$i] == 'none' &&
-                        $_SESSION['Department'] == 'visitRelative'
-                    ) { ?> 
-                      <button data-id="<?php echo $RQID[
-                          $i
-                      ]; ?>" class="btn btn-primary" href="#<?php echo $VID[
-    $i
-]; ?>">ข้อมูลเพิ่มเติม</button> 
-                      <button class="btn btn-success" onclick="ConfirmVisited('<?php echo $PriName[
-                          $i
-                      ]; ?>',<?php echo $VID[$i]; ?>)">สำเร็จ</button> 
-                      <button class="btn btn-danger"   onclick="ConfirmFailed('<?php echo $PriName[
-                          $i
-                      ]; ?>',<?php echo $VID[$i]; ?>)">ไม่สำเร็จ</button> 
-                    <?php } elseif (
                         isset($VID[$i]) &&
                         $StatusVID[$i] == 'finished'
                     ) { ?>
-
-                      <b style="color:#28a745">การเยี่ยมสำเร็จแล้ว</b>
+                          <b style="color:#28a745">✔ การเยี่ยมสำเร็จ</b>
                     <?php } elseif (
                         isset($VID[$i]) &&
                         $StatusVID[$i] == 'failed'
                     ) { ?>
-                        <b style="color:#dc3545">การเยี่ยมไม่สำเร็จ</b>
-                        <?php
-                        require_once '../database/connect.php';
-                        $sqlgetnote =
-                            'SELECT vid_note FROM tb_visits WHERE vid = "' .
-                            $VID[$i] .
-                            '" ';
-                        $result = mysqli_query($conn, $sqlgetnote);
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $note = $row['vid_note'];
-                        }
-                        ?>
-                        <p>สาเหตุ : <?php echo $note; ?></p>
+                          <b style="color:#dc3545">✖ การเยี่ยมไม่สำเร็จ</b>
+                    <?php } ?>
+
+                    </td>
+
+
+
+                    <td style="text-align:center">
+                      <?php if (isset($VID[$i])) { ?> 
+                        <button data-id="<?php echo $RQID[
+                            $i
+                        ]; ?>" class="btn btn-primary" href="#<?php echo $VID[
+    $i
+]; ?>">ข้อมูลเพิ่มเติม</button> 
                       <?php } ?>
                     </td>
                   </tr>
-
                   <?php } ?>
                
-                 
                   </tbody>
                  
                 </table>
               </div>
+<?php } ?>
               <!-- /.card-body -->
             </div>
           </div>
@@ -622,55 +654,57 @@ while ($row = mysqli_fetch_assoc($result)) {
 <!-- SweetAlert-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript">
-  ConfirmVisited = (pname,vid) =>{
-    Swal.fire({
-  title: 'ยืนยันหรือไม่',
-  text: 'การเข้าเยี่ยม  \''+pname+'\'  เสร็จสมบูรณ์',
-  icon: 'question',
-  showCancelButton: false,
-  confirmButtonColor: '#28a745',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'ยืนยันการเยี่ยมเสร็จสิ้น'
-}).then((result) => {
-  if (result.isConfirmed) {
-    window.location.href = 'action/confirm_vistited.php?id='+vid;
-  }
-})
-}
 
-ConfirmFailed = (pname,vid) =>{
-  Swal.fire({
-  icon: 'warning',
-  title: 'การเยี่ยมไม่สำเร็จ',
-  input: 'textarea',
-  text: 'การเข้าเยี่ยม  \''+pname+'\'  ไม่เสร็จสมบูรณ์',
-  inputPlaceholder: 'สาเหตุการเยี่ยมไม่สำเร็จ...',
-  confirmButtonColor: '#bd2130',
-  confirmButtonText: 'ยืนยันการเยี่ยมไม่สำเร็จ',
 
-  showCancelButton: false
-}).then((result) => {
-  if (result.value) {
-    window.location.href = 'action/confirm_failed.php?id='+vid+'&note='+result.value;
-    }
-})
-}
-
-$(document).ready(function () {
-  $(".datepicker")
-    .datepicker({
-      daysOfWeekDisabled: [0, 6],
-      format: "dd/mm/yyyy",
-      todayBtn: false,
-      language: "th", //เปลี่ยน label ต่างของ ปฏิทิน ให้เป็น ภาษาไทย   (ต้องใช้ไฟล์ bootstrap-datepicker.th.min.js นี้ด้วย)
-      thaiyear: true,
-      autoclose: true,
-      startDate: dateAdd(), //Set เป็นปี พ.ศ.
-      // startDate: "+5d", //Set เป็นปี พ.ศ.
-    })
-    .datepicker(); //กำหนดเป็นวันปัจุบัน
+// $(document).ready(function () {
+//   $(".datepicker")
+//     .datepicker({
+//       daysOfWeekDisabled: [0, 6],
+//       format: "dd/mm/yyyy",
+//       todayBtn: false,
+//       language: "th", //เปลี่ยน label ต่างของ ปฏิทิน ให้เป็น ภาษาไทย   (ต้องใช้ไฟล์ bootstrap-datepicker.th.min.js นี้ด้วย)
+//       thaiyear: true,
+//       autoclose: true,
+//       startDate: new Date(), //Set เป็นปี พ.ศ.
+//       // startDate: "+5d", //Set เป็นปี พ.ศ.
+//     })
+//     .datepicker(); //กำหนดเป็นวันปัจุบัน
     
-});
+// });
+
+//   ConfirmVisited = (pname,vid) =>{
+//     Swal.fire({
+//   title: 'ยืนยันหรือไม่',
+//   text: 'การเข้าเยี่ยม  \''+pname+'\'  เสร็จสมบูรณ์',
+//   icon: 'question',
+//   showCancelButton: false,
+//   confirmButtonColor: '#28a745',
+//   cancelButtonColor: '#d33',
+//   confirmButtonText: 'ยืนยันการเยี่ยมเสร็จสิ้น'
+// }).then((result) => {
+//   if (result.isConfirmed) {
+//     window.location.href = 'action/confirm_vistited.php?id='+vid;
+//   }
+// })
+// }
+
+// ConfirmFailed = (pname,vid) =>{
+//   Swal.fire({
+//   icon: 'warning',
+//   title: 'การเยี่ยมไม่สำเร็จ',
+//   input: 'textarea',
+//   text: 'การเข้าเยี่ยม  \''+pname+'\'  ไม่เสร็จสมบูรณ์',
+//   inputPlaceholder: 'สาเหตุการเยี่ยมไม่สำเร็จ...',
+//   confirmButtonColor: '#bd2130',
+//   confirmButtonText: 'ยืนยันการเยี่ยมไม่สำเร็จ',
+
+//   showCancelButton: false
+// }).then((result) => {
+//   if (result.value) {
+//     window.location.href = 'action/confirm_failed.php?id='+vid+'&note='+result.value;
+//     }
+// })
+// }
 
 
 </script>
@@ -688,7 +722,7 @@ $(document).ready(function () {
       "info": false,
       "paging": false,
       "responsive": true,
-      "buttons": ["print"]
+      "buttons": ["print","excel"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     // $('#example2').DataTable({
     //   "paging": true,
@@ -700,8 +734,8 @@ $(document).ready(function () {
     //   "responsive": true,
     // });
   });
-</script>
-<script type="text/javascript">
+  </script> 
+  <script type="text/javascript">
   $().ready(function(){
     $('.btn-primary').click(function(){
       var reqid =$(this).data('id');
@@ -715,7 +749,35 @@ $(document).ready(function () {
           }
         })
     })
-  });
-</script>
+  })
+  
+  ;
+  </script>
+  <script>
+            let calendar = new VanillaCalendar({
+                selector: "#myCalendar",
+                months: ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"],
+                shortWeekday: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
+                onSelect: (data) => {
+                    var date = moment(new Date(data.date.substr(0, 16)));
+                    var selectedDate = date.format("DD/MM/YYYY");
+                    var array = selectedDate.split("/");
+                    var newDate = array[0]+"/"+array[1]+"/"+(eval(array[2])+543);
+                    document.getElementById("inputdatepicker").value = newDate;
+                    document.getElementById("myCalendar").style.display = "none";
+                    $('.wrapper').removeClass('is-blurred');
+
+                }
+            })
+
+            $(document).ready(function() {
+            $("#inputdatepicker").click(function(event) {
+              $('.wrapper').addClass('is-blurred');
+              document.getElementById("myCalendar").style.display = "block";
+            });
+            });
+            
+            
+  </script>
 </body>
 </html>

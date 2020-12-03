@@ -1,4 +1,29 @@
 <?php
+session_start();
+if (!isset($_SESSION['Department'])) {
+    header('Location: sign_in.php');
+}
+$timeSet = [
+    '09.00-09.15น.',
+    '09.20-09.35น.',
+    '09.40-09.55น.',
+    '10.00-10.15น.',
+    '10.20-10.35น.',
+    '10.40-10.55น.',
+    '11.00-11.15น.',
+    '11.20-11.35น.',
+    '11.40-11.55น.',
+    '12.00-12.15น.',
+    '12.20-12.35น.',
+    '12.40-09.55น.',
+    '13.00-13.15น.',
+    '13.20-13.35น.',
+    '13.40-13.55น.',
+    '14.00-14.15น.',
+    '14.20-14.35น.',
+    '14.40-14.55น.',
+];
+
 $wait = 0;
 $ready = 0;
 require_once '../database/connect.php';
@@ -90,10 +115,12 @@ while ($row = mysqli_fetch_array($result)) {
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/icon.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="img/icon.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">วิธาน  วงษาบุตร</a>
+          <a href="#" class="d-block"> <?php echo $_SESSION['Firstname'] .
+              ' ' .
+              $_SESSION['Lastname']; ?> </a>
         </div>
       </div>
 
@@ -116,9 +143,12 @@ while ($row = mysqli_fetch_array($result)) {
               </a>
             </li>
 
+            
             <li class="nav-header">จัดการบริการ</li>
+
+            <?php if ($_SESSION['Department'] == 'visitRelative') { ?>
                <li class="nav-item">
-                <a href="approve_rq.php" class="nav-link   active">
+                <a href="approve_rq.php" class="nav-link  active">
                   <i class="nav-icon fas fa-check"></i>
                   <p>
                     อนุมัติคำขอเยี่ยม
@@ -135,20 +165,51 @@ while ($row = mysqli_fetch_array($result)) {
                 </a>
               </li>
 
+            <?php } ?>
+
+
+            <?php if ($_SESSION['Department'] == 'relativeRegis') { ?>
               <li class="nav-item">
+                <a href="approve_relation.php" class="nav-link">
+                <i class="nav-icon fas fa-check"></i>
+                  <p>
+                    อนุมัติเอกสารญาติ
+                  </p>
+                </a>
+              </li>
+
+            <?php } ?>
+
+            <?php if ($_SESSION['Department'] == 'prisonerRegis') { ?>
+
+
+              <li class="nav-item">
+                <a href="approve_prisoner.php" class="nav-link">
+                <i class="nav-icon fas fa-check"></i>
+                  <p>
+                    อนุมัติผู้ต้องขัง
+                  </p>
+                </a>
+              </li>
+
+              <?php } ?>
+
+              <!-- <li class="nav-item">
                 <a href="date_manager.php" class="nav-link">
                   <i class="nav-icon far fa-calendar-alt"></i>
                   <p>
                     จัดการวันที่ปิดบริการ
                   </p>
                 </a>
-              </li>
+              </li> -->
 
 
           <li class="nav-header">ประวัติและการค้นหา</li>
 
+          <?php if ($_SESSION['Department'] == 'visitRelative') { ?>
+
           <li class="nav-item">
-            <a href="history_a.html" class="nav-link">
+            <a href="history_approve.php" class="nav-link">
               <i class="nav-icon fas fa-history"></i>
               <p>
                 ประวัติการอนุมัติ
@@ -156,8 +217,10 @@ while ($row = mysqli_fetch_array($result)) {
             </a>
           </li>
 
+          <?php } ?>
+
           <li class="nav-item">
-            <a href="history_approve.php" class="nav-link">
+            <a href="history_visit.php" class="nav-link">
               <i class="nav-icon fas fa-history"></i>
               <p>
                 ประวัติการเยี่ยม
@@ -168,7 +231,7 @@ while ($row = mysqli_fetch_array($result)) {
           
 
           <li class="nav-item">
-            <a style="color:#f73144" href="logout.php" class="nav-link">
+            <a style="color:#f73144" href="sign_out.php" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 ออกจากระบบ
@@ -286,9 +349,12 @@ while ($row = mysqli_fetch_array($result)) {
                         $row['req_lastname']; ?></td>
 
 
-                    <td><?php echo $row['date_booking']; ?><br> <?php echo $row[
-    'time_booking'
-]; ?></td>
+                    <td><?php echo $row[
+                        'date_booking'
+                    ]; ?><br> <?php echo $timeSet[$row['time_booking'] - 1] .
+    '  (รอบที่ ' .
+    $row['time_booking'] .
+    ')'; ?></td>
                     <td><?php if ($row['doc_relat_status'] == 'accept') {
                         echo "<span class=\"badge badge-success\">ผ่านแล้ว</span>";
                     } elseif ($row['doc_relat_status'] == 'deny') {
@@ -354,9 +420,9 @@ while ($row = mysqli_fetch_array($result)) {
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     เรือนจำจังหวัดกาฬสินธุ์ 2020 
-    All rights reserved.
+   
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.1.0-pre
+      <b>Version</b> 1.0.0
     </div>
   </footer>
 
