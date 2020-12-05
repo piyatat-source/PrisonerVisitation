@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2020 at 12:44 PM
+-- Generation Time: Dec 05, 2020 at 02:16 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -111,10 +111,10 @@ CREATE TABLE `tb_staffs` (
 
 CREATE TABLE `tb_visits` (
   `vid` int(11) NOT NULL,
-  `req_id` int(11) NOT NULL,
+  `req_id` varchar(10) NOT NULL,
   `dc_id` int(11) NOT NULL,
-  `vid_status` set('accept','deny') NOT NULL,
-  `vid_note` varchar(50) NOT NULL
+  `vid_status` set('none','finished','failed') NOT NULL DEFAULT 'none',
+  `vid_note` varchar(80) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -159,19 +159,19 @@ ALTER TABLE `tb_visits`
 -- AUTO_INCREMENT for table `tb_datecloses`
 --
 ALTER TABLE `tb_datecloses`
-  MODIFY `dc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `dc_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_joinrequests`
 --
 ALTER TABLE `tb_joinrequests`
-  MODIFY `jreq_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `jreq_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_requests`
 --
 ALTER TABLE `tb_requests`
-  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_staffs`
